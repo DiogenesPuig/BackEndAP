@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package service;
+package com.example.backend.service;
 
 import java.util.List;
 import javax.transaction.Transactional;
-import model.Experience;
-import model.Studies;
+import com.example.backend.model.Experience;
+import com.example.backend.model.Studies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.ExperienceRepository;
+import com.example.backend.repository.ExperienceRepository;
 
 /**
  *

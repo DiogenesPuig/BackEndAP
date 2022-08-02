@@ -2,23 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package service;
-
+package com.example.backend.service;
 import java.util.List;
-import model.Skills;
+import com.example.backend.model.Perfil;
 
 /**
  *
  * @author hdppu
  */
-public interface ISkillsServices {
+public interface IPerfilService {
     
-    public List<Skills> getSkills();
+    public List<Perfil> getStudies();
  
-    public void save(Skills stu);
+    public void save(Perfil stu);
 
     public void delete(Long id);
 
-    public Skills findSkills(Long id);
+    public Perfil findStudies(Long id);
     
 }

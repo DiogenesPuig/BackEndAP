@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package repository;
+package com.example.backend.repository;
 
-import java.util.Optional;
-import model.Studies;
+import com.example.backend.model.Experience;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Repository;
  * @author hdppu
  */
 @Repository
-
-public interface StudiesRepository extends JpaRepository<Studies,Long>{
+public interface ExperienceRepository extends JpaRepository<Experience,Long> {
     
 }

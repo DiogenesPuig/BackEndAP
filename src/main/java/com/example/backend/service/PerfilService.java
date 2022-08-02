@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package service;
+package com.example.backend.service;
 
 import java.util.List;
 import javax.transaction.Transactional;
-import model.Skills;
+import com.example.backend.model.Perfil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.SkillsRepository;
+import com.example.backend.repository.PerfilRepository;
 
 /**
  *
@@ -17,29 +17,31 @@ import repository.SkillsRepository;
  */
 @Service
 @Transactional
-public class SkillsService implements ISkillsServices{
+public class PerfilService implements IPerfilService {
     
     @Autowired
-    SkillsRepository skRepo;
+    PerfilRepository peRepo;
 
     @Override
-    public List<Skills> getSkills() {
-        return skRepo.findAll();
+    public List<Perfil> getStudies() {
+        return peRepo.findAll();
     }
 
     @Override
-    public void save(Skills stu) {
-        skRepo.save(stu);
+    public void save(Perfil stu) {
+        peRepo.save(stu);
     }
 
     @Override
     public void delete(Long id) {
-        skRepo.deleteById(id);
+        peRepo.deleteById(id);
     }
 
     @Override
-    public Skills findSkills(Long id) {
-        Skills ns = skRepo.findById(id).orElse(null);
-        return ns;
+    public Perfil findStudies(Long id) {
+        Perfil per = peRepo.findById(id).orElse(null);
+        return per;
     }
+    
+    
 }

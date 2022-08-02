@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package service;
+package com.example.backend.service;
 
 import java.util.List;
-import model.Studies;
+import com.example.backend.model.Studies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.StudiesRepository;
+import com.example.backend.repository.StudiesRepository;
 
 /**
  *

@@ -2,11 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller;
+package com.example.backend.controller;
 
-import java.util.Date;
 import java.util.List;
-import model.Skills;
+import com.example.backend.model.Experience;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,45 +15,50 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import service.ISkillsServices;
+import com.example.backend.service.IExperienceServices;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
  * @author hdppu
  */
 @RestController
-public class SkillsController {
- 
-    @Autowired
-    private ISkillsServices stuInter;
+@RequestMapping("/experience")
+@CrossOrigin(origins = "http://localhost:4200")
+public class ExperienceController {
     
-    @GetMapping("/skills/traer")
-    public List<Skills> getStudy(){
-        return stuInter.getSkills();
+    @Autowired
+    private IExperienceServices perInter;
+    
+    @GetMapping("/get")
+    public List<Experience> getStudy(){
+        return perInter.getExperiences();
     }
     
-    @PostMapping("/skills/crear")
-    public String createStudies(@RequestBody Skills stu){
-        stuInter.save(stu);
+    @PostMapping("/create")
+    public String createStudies(@RequestBody Experience stu){
+        perInter.save(stu);
         return "Se creo exitosamente";
     }
     
-    @DeleteMapping("/skills/eliminar/{id}")
+    @DeleteMapping("delete/{id}")
     public String deleteStudy(@PathVariable Long id){
-        stuInter.delete(id);
+        perInter.delete(id);
         return "Se elimino exitosamente";
     }
     
-    @PutMapping("/skills/editar/{id}")
-    public Skills editPersona(@PathVariable Long id,
-                                @RequestParam ("nombre") String nombreNuevo){
+    @PutMapping("/edit/{id}")
+    public Experience editPersona(@PathVariable Long id,
+                                @RequestParam ("nombre") String nombreNuevo,
+                                @RequestParam ("descripcion") String descrNuevo){
         
-        Skills perso = stuInter.findSkills(id);
+        Experience perso = perInter.findExperiences(id);
         
         perso.setNombre(nombreNuevo);
-
+        perso.setDescripcion(descrNuevo);
         
-        stuInter.save(perso);
+        perInter.save(perso);
         
         return perso;
     }

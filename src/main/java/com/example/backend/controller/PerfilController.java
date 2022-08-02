@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller;
+package com.example.backend.controller;
 
 import java.util.Date;
 import java.util.List;
-import model.Studies;
+import com.example.backend.model.Perfil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,52 +16,56 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import service.IStudiesServices;
-
+import com.example.backend.service.IPerfilService;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
 /**
  *
  * @author hdppu
  */
 @RestController
-public class StudiesController {
+@RequestMapping("/profile")
+@CrossOrigin(origins = "http://localhost:4200")
+public class PerfilController {
     
     @Autowired
-    private IStudiesServices stuInter;
+    private IPerfilService perInter;
     
-    @GetMapping("/studies/traer")
-    public List<Studies> getStudy(){
-        return stuInter.getStudies();
+    @GetMapping("/get")
+    public List<Perfil> getStudy(){
+        return perInter.getStudies();
     }
     
-    @PostMapping("/studies/crear")
-    public String createStudies(@RequestBody Studies stu){
-        stuInter.save(stu);
+    @PostMapping("/create")
+    public String createStudies(@RequestBody Perfil stu){
+        perInter.save(stu);
         return "Se creo exitosamente";
     }
     
-    @DeleteMapping("/studies/eliminar/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteStudy(@PathVariable Long id){
-        stuInter.delete(id);
+        perInter.delete(id);
         return "Se elimino exitosamente";
     }
     
-    @PutMapping("/studies/editar/{id}")
-    public Studies editPersona(@PathVariable Long id,
+    @PutMapping("/edit/{id}")
+    public Perfil editPersona(@PathVariable Long id,
                                 @RequestParam ("nombre") String nombreNuevo,
                                 @RequestParam ("descripcion") String descrNuevo,
-                                @RequestParam ("inicio") Date iniNueva,
-                                @RequestParam ("fin") Date finNueva){
+                                @RequestParam ("nacimiento") Date nuevoNacimiento,
+                                @RequestParam ("mail") String nMail,
+                                @RequestParam ("telefono") String nTel){
         
-        Studies perso = stuInter.findStudies(id);
+        Perfil perso = perInter.findStudies(id);
         
         perso.setNombre(nombreNuevo);
         perso.setDescripcion(descrNuevo);
-        perso.setInicio(iniNueva);
-        perso.setFin(finNueva);
+        perso.setNacimiento(nuevoNacimiento);
+        perso.setMail(nMail);
+        perso.setTelefono(nTel);
         
-        stuInter.save(perso);
+        perInter.save(perso);
         
         return perso;
     }
-    
 }
