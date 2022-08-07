@@ -5,6 +5,8 @@
 package com.example.backend.controller;
 
 
+import com.example.backend.dto.Message;
+import com.example.backend.dto.StudiesDto;
 import java.util.Date;
 import java.util.List;
 import com.example.backend.model.Studies;
@@ -38,43 +40,45 @@ public class StudiesController {
     private IStudiesServices stuInter;
     
     @GetMapping("/get")
-    public List<Studies> getStudy(){
+    public List<Studies> getStudies(){
         return stuInter.getStudies();
     }
     
+    @GetMapping("/get/{id}")
+    public Studies getStudy(@PathVariable Long id){
+        return stuInter.findStudies(id);
+    }
+    
     @PostMapping("/create")
-    public ResponseEntity<?> createStudies(@RequestBody Studies stu){
-        if(stu.getNombre().isBlank()){
-            return new ResponseEntity (("El nombre es obligatorio"),HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> createStudy(@RequestBody StudiesDto studto){
+        if(studto.getNombre().isBlank()){
+            return new ResponseEntity (new Message("El nombre es obligatorio"),HttpStatus.BAD_REQUEST);
         }else{
-            stuInter.save(stu);
-            return new ResponseEntity ("Se creo exitosamente",HttpStatus.OK);
+            Studies studies = new Studies(studto.getNombre(),studto.getDescripcion(),studto.getInicio(),studto.getFin());
+            stuInter.save(studies);
+            return new ResponseEntity (new Message("Se creo exitosamente"),HttpStatus.OK);
         }
     }
     
     @DeleteMapping("/delete/{id}")
-    public String deleteStudy(@PathVariable Long id){
+    public ResponseEntity<?> deleteStudy(@PathVariable Long id){
         stuInter.delete(id);
-        return "Se elimino exitosamente";
+        return new ResponseEntity(new Message("Se elimino exitosamente"),HttpStatus.OK);
     }
     
     @PutMapping("/edit/{id}")
-    public Studies editPersona(@PathVariable Long id,
-                                @RequestParam ("nombre") String nombreNuevo,
-                                @RequestParam ("descripcion") String descrNuevo,
-                                @RequestParam ("inicio") Date iniNueva,
-                                @RequestParam ("fin") Date finNueva){
+    public ResponseEntity<?> editStudies(@PathVariable Long id,@RequestBody StudiesDto studto){
         
+         
         Studies perso = stuInter.findStudies(id);
-        
-        perso.setNombre(nombreNuevo);
-        perso.setDescripcion(descrNuevo);
-        perso.setInicio(iniNueva);
-        perso.setFin(finNueva);
+        perso.setNombre(studto.getNombre());
+        perso.setDescripcion(studto.getDescripcion());
+        perso.setInicio(studto.getInicio());
+        perso.setFin(studto.getFin());
         
         stuInter.save(perso);
         
-        return perso;
+        return new ResponseEntity(new Message("Estudio actualizado"), HttpStatus.OK);
     }
     
 }

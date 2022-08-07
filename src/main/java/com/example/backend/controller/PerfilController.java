@@ -4,6 +4,8 @@
  */
 package com.example.backend.controller;
 
+import com.example.backend.dto.Message;
+import com.example.backend.dto.PerfilDto;
 import java.util.Date;
 import java.util.List;
 import com.example.backend.model.Perfil;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.backend.service.IPerfilService;
+import com.example.backend.service.PerfilService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 /**
@@ -32,40 +37,43 @@ public class PerfilController {
     private IPerfilService perInter;
     
     @GetMapping("/get")
-    public List<Perfil> getStudy(){
-        return perInter.getStudies();
+    public List<Perfil> getProfiles(){
+        return perInter.getProfile();
+    }
+    
+    @GetMapping("/get/{id}")
+    public Perfil getProfile(@PathVariable Long id){
+        return perInter.findProfile(id);
     }
     
     @PostMapping("/create")
-    public String createStudies(@RequestBody Perfil stu){
-        perInter.save(stu);
-        return "Se creo exitosamente";
+    public ResponseEntity<?> createPerfil(@RequestBody PerfilDto studto){
+        Perfil perfil = new Perfil(
+        studto.getNombre(),studto.getDescripcion(),studto.getNacimiento(),studto.getMail(),studto.getTelefono());
+        perInter.save(perfil);
+        return new ResponseEntity(new Message("Se creo exitosamente"),HttpStatus.OK);
     }
     
     @DeleteMapping("/delete/{id}")
-    public String deleteStudy(@PathVariable Long id){
+    public ResponseEntity<?> deletePerfil(@PathVariable Long id){
         perInter.delete(id);
-        return "Se elimino exitosamente";
+        return new ResponseEntity(new Message("Se elimino exitosamente"),HttpStatus.OK);
     }
     
     @PutMapping("/edit/{id}")
-    public Perfil editPersona(@PathVariable Long id,
-                                @RequestParam ("nombre") String nombreNuevo,
-                                @RequestParam ("descripcion") String descrNuevo,
-                                @RequestParam ("nacimiento") Date nuevoNacimiento,
-                                @RequestParam ("mail") String nMail,
-                                @RequestParam ("telefono") String nTel){
+    public ResponseEntity<?> editPerfil(@PathVariable Long id,
+                                @RequestBody PerfilDto perdto){
         
-        Perfil perso = perInter.findStudies(id);
+        Perfil perso = perInter.findProfile(id);
         
-        perso.setNombre(nombreNuevo);
-        perso.setDescripcion(descrNuevo);
-        perso.setNacimiento(nuevoNacimiento);
-        perso.setMail(nMail);
-        perso.setTelefono(nTel);
+        perso.setNombre(perdto.getNombre());
+        perso.setDescripcion(perdto.getDescripcion());
+        perso.setNacimiento(perdto.getNacimiento());
+        perso.setMail(perdto.getMail());
+        perso.setTelefono(perdto.getTelefono());
         
         perInter.save(perso);
         
-        return perso;
+       return new ResponseEntity(new Message("Perfil actualizado"), HttpStatus.OK);
     }
 }

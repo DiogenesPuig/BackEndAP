@@ -28,6 +28,15 @@ public class Studies {
     private String descripcion;
     private Date inicio;
     private Date fin;
-            
-    
+
+    public Studies(String nombre, String descripcion, Date inicio, Date fin) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.inicio = inicio;
+        this.fin = fin;
+    }
+
+    public Studies() {
+    }
+             
 }

@@ -24,5 +24,13 @@ public class Experience {
     private Long id;
     private String nombre;
     private String descripcion;
-    
+
+    public Experience(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
+    public Experience() {
+    }
+
 }

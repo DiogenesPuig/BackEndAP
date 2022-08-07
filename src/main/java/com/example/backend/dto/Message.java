@@ -9,18 +9,19 @@ package com.example.backend.dto;
  * @author hdppu
  */
 public class Message {
-    private String message;
+
+    private String mensaje;
+
+    public Message(String mensaje) {
+        this.mensaje = mensaje;
+    }
 
     public String getMessage() {
-        return message;
+        return mensaje;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessage(String mensaje) {
+        this.mensaje = mensaje;
     }
-
-    public Message(String message) {
-        this.message = message;
-    }
-    
 }
+

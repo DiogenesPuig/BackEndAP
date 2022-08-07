@@ -4,6 +4,8 @@
  */
 package com.example.backend.controller;
 
+import com.example.backend.dto.ExperienceDto;
+import com.example.backend.dto.Message;
 import java.util.List;
 import com.example.backend.model.Experience;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.backend.service.IExperienceServices;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -36,30 +40,41 @@ public class ExperienceController {
         return perInter.getExperiences();
     }
     
+    @GetMapping("/get/{id}")
+    public Experience getExperience(@PathVariable Long id){
+        return perInter.findExperiences(id);
+    }
+    
     @PostMapping("/create")
-    public String createStudies(@RequestBody Experience stu){
-        perInter.save(stu);
-        return "Se creo exitosamente";
+    public ResponseEntity<?> create(@RequestBody ExperienceDto expdto){
+        if(expdto.getNombre().isBlank()){
+            return new ResponseEntity (new Message("El nombre es obligatorio"),HttpStatus.BAD_REQUEST);
+        }else{
+            Experience experience = new Experience(
+                    expdto.getNombre(),expdto.getDescripcion()
+            );
+            
+            perInter.save(experience);
+            return new ResponseEntity ( new Message("Se creo exitosamente"),HttpStatus.OK);
+        }
     }
     
     @DeleteMapping("delete/{id}")
-    public String deleteStudy(@PathVariable Long id){
+    public ResponseEntity<?> deleteExperience(@PathVariable Long id){
         perInter.delete(id);
-        return "Se elimino exitosamente";
+        return new ResponseEntity(new Message("Se elimino exitosamente"),HttpStatus.OK);
     }
     
     @PutMapping("/edit/{id}")
-    public Experience editPersona(@PathVariable Long id,
-                                @RequestParam ("nombre") String nombreNuevo,
-                                @RequestParam ("descripcion") String descrNuevo){
+    public ResponseEntity<?> editExperience(@PathVariable Long id,
+                                @RequestBody ExperienceDto expdto){
         
-        Experience perso = perInter.findExperiences(id);
-        
-        perso.setNombre(nombreNuevo);
-        perso.setDescripcion(descrNuevo);
+        Experience perso = perInter.findExperiences(id);  
+        perso.setNombre(expdto.getNombre());
+        perso.setDescripcion(expdto.getDescripcion());
         
         perInter.save(perso);
         
-        return perso;
+        return new ResponseEntity(new Message("Experiencia actualizado"), HttpStatus.OK);
     }
 }

@@ -4,6 +4,8 @@
  */
 package com.example.backend.controller;
 
+import com.example.backend.dto.Message;
+import com.example.backend.dto.SkillsDto;
 import java.util.Date;
 import java.util.List;
 import com.example.backend.model.Skills;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.backend.service.ISkillsServices;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,29 +41,38 @@ public class SkillsController {
         return stuInter.getSkills();
     }
     
+    @GetMapping("/get/{id}")
+    public Skills getSkill(@PathVariable Long id){
+        return stuInter.findSkills(id);
+    }
+    
     @PostMapping("/create")
-    public String createStudies(@RequestBody Skills stu){
-        stuInter.save(stu);
-        return "Se creo exitosamente";
+    public ResponseEntity<?> createSkills(@RequestBody SkillsDto skdto){
+        if(skdto.getNombre().isBlank()){
+            return new ResponseEntity (new Message("El nombre es obligatorio"),HttpStatus.BAD_REQUEST);
+        }else{
+            Skills skill = new Skills(
+            skdto.getNombre());
+            stuInter.save(skill);
+            return new ResponseEntity(new Message("Se creo exitosamente"), HttpStatus.OK);
+        }
     }
     
     @DeleteMapping("/delete/{id}")
-    public String deleteStudy(@PathVariable Long id){
+    public ResponseEntity<?> deleteSkills(@PathVariable Long id){
         stuInter.delete(id);
-        return "Se elimino exitosamente";
+        return new ResponseEntity(new Message("Se elimino exitosamente"),HttpStatus.OK);
     }
     
     @PutMapping("/edit/{id}")
-    public Skills editPersona(@PathVariable Long id,
-                                @RequestParam ("nombre") String nombreNuevo){
+    public ResponseEntity<?> editSkills(@PathVariable Long id,
+                                @RequestBody SkillsDto skdto){
         
         Skills perso = stuInter.findSkills(id);
-        
-        perso.setNombre(nombreNuevo);
-
+        perso.setNombre(skdto.getNombre());
         
         stuInter.save(perso);
         
-        return perso;
+        return new ResponseEntity(new Message("habilidad actualizada"), HttpStatus.OK);
     }
 }

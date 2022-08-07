@@ -24,4 +24,13 @@ public class Skills {
     private Long id;
     private String nombre;
 
+    public Skills(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Skills() {
+    }
+
+    
+
 }

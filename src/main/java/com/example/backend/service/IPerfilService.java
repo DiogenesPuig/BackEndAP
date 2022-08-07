@@ -12,12 +12,12 @@ import com.example.backend.model.Perfil;
  */
 public interface IPerfilService {
     
-    public List<Perfil> getStudies();
+    public List<Perfil> getProfile();
  
     public void save(Perfil stu);
 
     public void delete(Long id);
 
-    public Perfil findStudies(Long id);
+    public Perfil findProfile(Long id);
     
 }

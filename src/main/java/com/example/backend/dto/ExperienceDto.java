@@ -3,11 +3,37 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.example.backend.dto;
-
 /**
  *
  * @author hdppu
  */
 public class ExperienceDto {
     
+    private String nombre;
+    private String descripcion;
+
+    public ExperienceDto(){
+    }
+
+    public ExperienceDto (String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcionE) {
+        this.descripcion = descripcionE;
+    }
+
 }

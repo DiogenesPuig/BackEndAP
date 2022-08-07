@@ -30,6 +30,18 @@ public class Perfil {
     private Date nacimiento;
     private String mail;
     private String telefono;
+
+    public Perfil(String nombre, String descripcion, Date nacimiento, String mail, String telefono) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.nacimiento = nacimiento;
+        this.mail = mail;
+        this.telefono = telefono;
+    }
+
+    public Perfil() {
+    }
+    
     
     
 }

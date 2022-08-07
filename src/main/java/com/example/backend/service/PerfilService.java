@@ -23,8 +23,9 @@ public class PerfilService implements IPerfilService {
     PerfilRepository peRepo;
 
     @Override
-    public List<Perfil> getStudies() {
-        return peRepo.findAll();
+    public List<Perfil> getProfile() {
+        List<Perfil> allProf = peRepo.findAll();
+        return allProf ;
     }
 
     @Override
@@ -38,7 +39,7 @@ public class PerfilService implements IPerfilService {
     }
 
     @Override
-    public Perfil findStudies(Long id) {
+    public Perfil findProfile(Long id) {
         Perfil per = peRepo.findById(id).orElse(null);
         return per;
     }
