@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package security.dto;
+package com.example.backend.security.dto;
 
 /**
  *
@@ -14,14 +14,14 @@ import java.util.Set;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-public class NewUser {
+public class NuevoUsuario {
     @NotBlank
     private String nombre;
-    @NotBlank       
+    @NotBlank
     private String nombreUsuario;
     @Email
     private String email;
-    @NotBlank 
+    @NotBlank
     private String password;
     private Set<String> roles = new HashSet<>();
 
@@ -64,6 +64,4 @@ public class NewUser {
     public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
-    
-    
 }

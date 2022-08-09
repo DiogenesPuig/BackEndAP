@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package security.jwt;
+package com.example.backend.security.jwt;
 
 import java.io.IOException;
 import org.slf4j.Logger;

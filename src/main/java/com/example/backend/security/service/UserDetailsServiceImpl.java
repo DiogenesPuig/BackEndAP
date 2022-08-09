@@ -2,28 +2,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package security.service;
+package com.example.backend.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import security.model.MainUser;
-import security.model.User;
+import com.example.backend.security.model.UsuarioPrincipal;
+import com.example.backend.security.model.Usuario;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author hdppu
  */
-public class UserDetailsServiceImp implements UserDetailsService{
-    
+@Service
+public class UserDetailsServiceImpl implements UserDetailsService {
+
     @Autowired
-    UserService userService;
+    UsuarioService usuarioService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.getByUserName(username).get();
-        return MainUser.build(user);
+    public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
+        Usuario usuario = usuarioService.getByNombreUsuario(nombreUsuario).get();
+        return UsuarioPrincipal.build(usuario);
     }
-    
 }

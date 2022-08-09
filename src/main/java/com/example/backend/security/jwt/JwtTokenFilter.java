@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package security.jwt;
+package com.example.backend.security.jwt;
 
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -16,7 +16,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
-import security.service.UserDetailsServiceImp;
+import com.example.backend.security.service.UserDetailsServiceImpl;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  *
@@ -24,13 +25,13 @@ import security.service.UserDetailsServiceImp;
  */
 public class JwtTokenFilter extends OncePerRequestFilter {
     
-     private final static Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
+    private final static Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
 
     @Autowired
     JwtProvider jwtProvider;
 
     @Autowired
-    UserDetailsServiceImp userDetailsService;
+    UserDetailsServiceImpl userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -44,7 +45,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
-        } catch (Exception e){
+        } catch (UsernameNotFoundException e){
             logger.error("fail en el método doFilter " + e.getMessage());
         }
         filterChain.doFilter(request, response);

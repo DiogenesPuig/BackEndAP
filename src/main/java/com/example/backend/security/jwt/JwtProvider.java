@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package security.jwt;
+package com.example.backend.security.jwt;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import security.model.MainUser;
+import com.example.backend.security.model.UsuarioPrincipal;
 
 /**
  *
@@ -34,8 +34,8 @@ public class JwtProvider {
     private int expiration;
     
     public String generateToken(Authentication auth){
-        MainUser mainUser = (MainUser) auth.getPrincipal();
-        return Jwts.builder().setSubject(mainUser.getUsername())
+        UsuarioPrincipal usuarioPrincipal = (UsuarioPrincipal) auth.getPrincipal();
+        return Jwts.builder().setSubject(usuarioPrincipal.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + expiration * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret)

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package security.dto;
+package com.example.backend.security.dto;
 
 import javax.validation.constraints.NotBlank;
 
@@ -10,10 +10,10 @@ import javax.validation.constraints.NotBlank;
  *
  * @author hdppu
  */
-public class LoginUser {
-    @NotBlank       
+public class LoginUsuario {
+    @NotBlank
     private String nombreUsuario;
-    @NotBlank 
+    @NotBlank
     private String password;
 
     public String getNombreUsuario() {
@@ -31,6 +31,4 @@ public class LoginUser {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
 }
