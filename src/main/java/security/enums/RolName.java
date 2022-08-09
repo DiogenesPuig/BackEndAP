@@ -8,6 +8,6 @@ package security.enums;
  *
  * @author hdppu
  */
-public class RolName {
-    
+public enum RolName {
+    ROLE_ADMIN,ROLE_USER;
 }
