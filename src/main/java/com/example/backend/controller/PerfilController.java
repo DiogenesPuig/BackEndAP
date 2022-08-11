@@ -22,6 +22,7 @@ import com.example.backend.service.IPerfilService;
 import com.example.backend.service.PerfilService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 /**
@@ -59,7 +60,7 @@ public class PerfilController {
         perInter.delete(id);
         return new ResponseEntity(new Message("Se elimino exitosamente"),HttpStatus.OK);
     }
-    
+
     @PutMapping("/edit/{id}")
     public ResponseEntity<?> editPerfil(@PathVariable Long id,
                                 @RequestBody PerfilDto perdto){

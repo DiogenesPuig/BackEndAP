@@ -8,13 +8,13 @@ package com.example.backend.security.dto;
  *
  * @author hdppu
  */
-
 import java.util.HashSet;
 import java.util.Set;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 public class NuevoUsuario {
+
     @NotBlank
     private String nombre;
     @NotBlank

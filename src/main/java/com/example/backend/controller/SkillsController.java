@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.backend.service.ISkillsServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -64,6 +65,7 @@ public class SkillsController {
         return new ResponseEntity(new Message("Se elimino exitosamente"),HttpStatus.OK);
     }
     
+
     @PutMapping("/edit/{id}")
     public ResponseEntity<?> editSkills(@PathVariable Long id,
                                 @RequestBody SkillsDto skdto){

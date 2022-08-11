@@ -51,6 +51,7 @@ public class JwtProvider {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             return true;
         }catch (MalformedJwtException e){
+            System.out.println(e);
             logger.error("token mal formado");
         }catch (UnsupportedJwtException e){
             logger.error("token no soportado");
