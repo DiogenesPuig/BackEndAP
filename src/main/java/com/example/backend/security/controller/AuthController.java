@@ -39,7 +39,7 @@ import com.example.backend.security.service.UsuarioService;
  */
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin
+@CrossOrigin(origins = "https://frontargprogrdp.web.app")
 public class AuthController {
 
     @Autowired
